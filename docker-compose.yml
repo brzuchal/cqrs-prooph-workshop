@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  php:
+    build: 
+      context: .
+      args:
+        - UID
+    volumes:
+     - ./:/var/www/html
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWD: userpass
+      MYSQL_DATABASE: workshop
+      MYSQL_USER: workshop
+      MYSQL_PASSWORD: workshop
+

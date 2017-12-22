@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+use App\Application\Command\CreateProduct;
+use App\Application\Command\CreateProductHandler;
+use App\UI\Command\CreateProductCommand;
 use Pimple\Container;
 use Pimple\Psr11\Container as PsrContainer;
 use Prooph\ServiceBus\CommandBus;
@@ -24,8 +27,8 @@ return (function (array $config): PsrContainer {
         return (new QueryBusFactory())($container['container']);
     };
     // application
-    $container[\App\Application\Command\CreateProductHandler::class] = static function (): \App\Application\Command\CreateProductHandler {
-        return new \App\Application\Command\CreateProductHandler();
+    $container[CreateProductHandler::class] = static function (): CreateProductHandler {
+        return new CreateProductHandler();
     };
     // command routing
     // ... put come command handlers here
@@ -33,7 +36,7 @@ return (function (array $config): PsrContainer {
     $container[Application::class] = static function (Container $container): Application {
         $app = new Application();
         $app->addCommands([
-            new \App\UI\Command\CreateProductCommand($container['container']),
+            new CreateProductCommand($container['container']),
         ]);
         return $app;
     };
@@ -46,8 +49,7 @@ return (function (array $config): PsrContainer {
                 'command_bus' => [
                     'router' => [
                         'routes' => [
-                            // here'll be commands to handlers routing
-                            \App\Application\Command\CreateProduct::class => \App\Application\Command\CreateProductHandler::class,
+                            CreateProduct::class => CreateProductHandler::class,
                         ],
                     ],
                 ],

@@ -23,3 +23,30 @@ composer config bin-dir bin/
 composer require ramsey/uuid psr/container prooph/service-bus symfony/console
 composer require --dev phpunit/phpunit friendsofphp/php-cs-fixer
 ```
+
+## Setting up project
+
+Creating src directory and .gitignore
+```
+mkdir src
+echo 'bin' > .gitignore
+echo '!bin/console' >> .gitignore
+echo 'vendor' >> .gitignore
+```
+
+Adding autoload to `composer.json`
+```
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
+```
+
+Dumping autoload
+```
+composer dump-autoload
+```
+

@@ -50,3 +50,23 @@ Dumping autoload
 composer dump-autoload
 ```
 
+Creating bin/console
+```
+touch bin/console
+chmod +x bin/console
+```
+
+Creating Symfony Console app
+```
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+namespace App;
+require __DIR__ . '/../vendor/autoload.php';
+use Symfony\Component\Console\Application;
+
+$app = new Application();
+
+// ... register commands
+
+$app->run();
+```
